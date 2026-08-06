@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>New Product — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260803-10">
+</head>
+<body>
+  <main class="adminShell">
+    <aside class="sidebar">
+      <a href="index.html" class="brand light"><span class="mark">T</span> TEEMON</a>
+      <span class="workspaceLabel">CATALOG MANAGEMENT</span>
+      <nav>
+        <a href="admin.html"><span>⌂</span>Dashboard</a>
+        <a class="catalogSidebarLink" href="catalog.html" target="_blank" rel="noopener"><span>↗</span>View catalog</a>
+        <a class="selected" href="products.html"><span>□</span>Products</a>
+        <a href="variants.html"><span>◇</span>Variants</a>
+        <a href="#"><span>◉</span>Fulfillment</a>
+        <a href="#"><span>⇅</span>Import / Export</a>
+        <a href="users.html"><span>♙</span>Users</a>
+        <a href="activity-logs.html"><span>◷</span>Activity logs</a>
+      </nav>
+      <div class="userCard">
+        <div id="adminAvatar">DL</div>
+        <p><b id="adminName">Duyen Luong</b><span id="adminRole">Root Admin</span></p>
+        <button id="signOutBtn" type="button">Sign out</button>
+      </div>
+    </aside>
+
+    <section class="adminMain productEditorMain">
+      <header>
+        <div><a class="backLink" href="products.html">← Products</a><h1>Create product</h1><p>New products are saved as Draft and are not public yet.</p></div>
+      </header>
+      <section class="panel editorPanel">
+        <div class="panelHead"><div><span class="eyebrow">Basic information</span><h2>Product details</h2></div><span class="statusBadge status-draft">Draft</span></div>
+        <div class="requiredHint">Fields marked with * must be completed before the Draft can be saved.</div>
+        <form id="productForm" class="adminForm productForm" action="product-new.html" onsubmit="return false">
+          <div class="formColumns">
+            <label>Product code *<input id="productCode" maxlength="80" required autocomplete="off" placeholder="TSHIRT-001"></label>
+            <label>Category *
+              <select id="categoryId" required>
+                <option value="">Select category</option>
+                <option value="CLOTHING">Clothing</option>
+                <option value="HOME-LIVING">Home &amp; Living</option>
+                <option value="ACCESSORIES">Accessories</option>
+              </select>
+            </label>
+          </div>
+          <label>Product name *<input id="productName" minlength="2" maxlength="255" required autocomplete="off"></label>
+          <label>URL slug *<input id="productSlug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" autocomplete="off" placeholder="classic-cotton-t-shirt"></label>
+          <label>Short description <textarea id="shortDescription" maxlength="500" rows="3"></textarea><small><span id="shortDescriptionCount">0</span>/500</small></label>
+          <label>Keywords <input id="productKeywords" type="text" maxlength="1000" placeholder="t-shirt, cotton, unisex, streetwear"><small>Separate keywords with commas. Maximum 30 keywords.</small></label>
+          <label>Description *<textarea id="description" required rows="9"></textarea></label>
+          <label>Note for design <textarea id="designNote" rows="7" maxlength="10000" placeholder="Internal design instructions, artwork placement, production notes..."></textarea><small>Internal only. Visible to signed-in staff and administrators, never to visitors.</small></label>
+          <fieldset class="optionFieldset">
+            <legend>Available colors *</legend>
+            <p>Select every color that can be used for this product.</p>
+            <div class="optionPicker" id="colorOptions"><span class="optionLoading">Loading colors…</span></div>
+            <div class="inlineOptionCreator"><input id="newColorName" type="text" maxlength="100" placeholder="Color or pattern name"><button class="button ghost" id="addColorOption" type="button">+ Add color/pattern</button></div>
+          </fieldset>
+          <fieldset class="optionFieldset">
+            <legend>Available sizes *</legend>
+            <p>Select every size that can be used for this product.</p>
+            <div class="optionPicker" id="sizeOptions"><span class="optionLoading">Loading sizes…</span></div>
+            <div class="inlineOptionCreator"><input id="newSizeName" type="text" maxlength="100" placeholder="Size, e.g. M or 14 × 15 inch"><button class="button ghost" id="addSizeOption" type="button">+ Add size</button></div>
+          </fieldset>
+          <div class="formMessage" id="productFormMessage" role="status"></div>
+          <div class="editorActions">
+            <a class="button ghost" href="products.html">Cancel</a>
+            <button class="button primary" id="saveProductButton" type="submit">Save Draft</button>
+          </div>
+        </form>
+      </section>
+    </section>
+  </main>
+  <script src="js/supabase-rest.js?v=20260801-1"></script>
+  <script defer src="js/product-new.js?v=20260801-2"></script>
+</body>
+</html>

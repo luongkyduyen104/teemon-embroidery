@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dashboard — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260803-10">
+</head>
+<body>
+  <main class="adminShell">
+    <aside class="sidebar">
+      <a href="index.html" class="brand light"><span class="mark">T</span> TEEMON</a>
+      <span class="workspaceLabel">CATALOG MANAGEMENT</span>
+      <nav>
+        <a class="selected" href="admin.html"><span>⌂</span>Dashboard</a>
+        <a class="catalogSidebarLink" href="catalog.html" target="_blank" rel="noopener"><span>↗</span>View catalog</a>
+        <a href="products.html"><span>□</span>Products <b id="sidebarProductCount">0</b></a>
+        <a href="variants.html"><span>◇</span>Variants</a>
+        <a href="#"><span>◉</span>Fulfillment</a>
+        <a href="#"><span>⇅</span>Import / Export</a>
+        <a href="users.html" id="usersNavLink"><span>♙</span>Users</a>
+        <a href="activity-logs.html" id="activityLogsNavLink"><span>◷</span>Activity logs</a>
+      </nav>
+      <div class="userCard">
+        <div id="adminAvatar">DL</div>
+        <p><b id="adminName">Duyen Luong</b><span id="adminRole">Root Admin</span></p>
+        <button id="signOutBtn" type="button">Sign out</button>
+      </div>
+    </aside>
+    <section class="adminMain">
+      <header>
+        <div><span class="eyebrow" id="todayLabel">Catalog overview</span><h1>Good afternoon, <span id="welcomeName">Duyen</span>.</h1><p>Here’s what’s happening across your catalog today. <span class="liveStatus" id="liveStatus">Connecting…</span></p></div>
+        <div class="adminActions"><a class="button primary" href="catalog.html">View catalog →</a></div>
+      </header>
+      <div class="metricGrid">
+        <article><span>Total products</span><h2 id="totalProducts">0</h2><p id="productsThisMonth">0 created this month</p></article>
+        <article><span>Published</span><h2 id="publishedProducts">0</h2><p id="publishedPercent">0% of catalog</p></article>
+        <article><span>Draft</span><h2 id="draftProducts">0</h2><p>Waiting for publication</p></article>
+        <article><span>Unpublished</span><h2 id="unpublishedProducts">0</h2><p>Not visible in catalog</p></article>
+      </div>
+      <div class="adminGrid">
+        <section class="panel attention">
+          <div class="panelHead"><div><span class="eyebrow">Action center</span><h2>Needs attention</h2></div></div>
+          <div class="attentionRow"><span class="alertIcon">!</span><div><b>Missing product images</b><p>Upload at least one thumbnail</p></div><strong id="missingImages">0 products</strong></div>
+          <div class="attentionRow"><span class="alertIcon">◇</span><div><b>Missing Color or Size</b><p>Select product options before publishing</p></div><strong id="missingOptions">0 products</strong></div>
+          <div class="attentionRow"><span class="alertIcon">□</span><div><b>Missing charts</b><p>Add size or color reference charts</p></div><strong id="missingCharts">0 products</strong></div>
+        </section>
+        <section class="panel readiness">
+          <div class="panelHead"><div><span class="eyebrow">Catalog health</span><h2>Publish readiness</h2></div></div>
+          <div class="donut" id="catalogDonut"><div><b id="catalogHealthPercent">0%</b><span>published</span></div></div>
+          <ul><li><span class="green"></span>Ready drafts <b id="readyDrafts">0</b></li><li><span class="yellow"></span>Published with warnings <b id="warningProducts">0</b></li><li><span class="red"></span>Blocked drafts <b id="blockedDrafts">0</b></li></ul>
+        </section>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="js/admin.js?v=20260731-3"></script>
+</body>
+</html>

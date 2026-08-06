@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Build output
+build/
+dist/
+.next/
+out/
+outputs/
+tmp/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Logs
+*.log
+
+# Editor and system
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Local AI/tool folders
+.openai/
+
+# Local Supabase files
+supabase/.temp/
+supabase/.branches/
+
+# Font and archive source files
+*.otf
+*.ttf
+*.zip

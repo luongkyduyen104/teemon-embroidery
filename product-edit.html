@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Edit Product — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260804-1">
+</head>
+<body>
+  <main class="adminShell">
+    <aside class="sidebar">
+      <a href="index.html" class="brand light"><span class="mark">T</span> TEEMON</a>
+      <span class="workspaceLabel">CATALOG MANAGEMENT</span>
+      <nav>
+        <a href="admin.html"><span>⌂</span>Dashboard</a>
+        <a class="catalogSidebarLink" href="catalog.html" target="_blank" rel="noopener"><span>↗</span>View catalog</a>
+        <a class="selected" href="products.html"><span>□</span>Products</a>
+        <a href="variants.html"><span>◇</span>Variants</a>
+        <a href="#"><span>◉</span>Fulfillment</a>
+        <a href="#"><span>⇅</span>Import / Export</a>
+        <a href="users.html"><span>♙</span>Users</a>
+        <a href="activity-logs.html"><span>◷</span>Activity logs</a>
+      </nav>
+      <div class="userCard">
+        <div id="adminAvatar">DL</div>
+        <p><b id="adminName">Duyen Luong</b><span id="adminRole">Root Admin</span></p>
+        <button id="signOutBtn" type="button">Sign out</button>
+      </div>
+    </aside>
+
+    <section class="adminMain productEditorMain">
+      <header>
+        <div><a class="backLink" href="products.html">← Products</a><h1 id="editorTitle">Edit product</h1><p>Update the product’s basic information.</p></div>
+      </header>
+      <section class="panel editorPanel">
+        <div class="panelHead"><div><span class="eyebrow">Basic information</span><h2>Product details</h2></div><span class="statusBadge" id="productStatusBadge">Loading</span></div>
+        <form id="productForm" class="adminForm productForm">
+          <div class="formColumns">
+            <label>Product code *<input id="productCode" maxlength="80" required autocomplete="off"></label>
+            <label>Category *
+              <select id="categoryId" required>
+                <option value="">Select category</option>
+                <option value="CLOTHING">Clothing</option>
+                <option value="HOME-LIVING">Home &amp; Living</option>
+                <option value="ACCESSORIES">Accessories</option>
+              </select>
+            </label>
+          </div>
+          <label>Product name *<input id="productName" minlength="2" maxlength="255" required autocomplete="off"></label>
+          <label>URL slug *<input id="productSlug" required pattern="[a-z0-9]+(?:-[a-z0-9]+)*" autocomplete="off"></label>
+          <label>Short description <textarea id="shortDescription" maxlength="500" rows="3"></textarea><small><span id="shortDescriptionCount">0</span>/500</small></label>
+          <label>Keywords <input id="productKeywords" type="text" maxlength="1000" placeholder="t-shirt, cotton, unisex, streetwear"><small>Separate keywords with commas. Maximum 30 keywords.</small></label>
+          <label>Description *<textarea id="description" required rows="9"></textarea></label>
+          <label>Note for design <textarea id="designNote" rows="7" maxlength="10000" placeholder="Internal design instructions, artwork placement, production notes..."></textarea><small>Internal only. Visible to signed-in staff and administrators, never to visitors.</small></label>
+          <section class="productMediaSection">
+            <div class="mediaSectionHead">
+              <div><span class="eyebrow">Product media</span><h3>Images</h3></div>
+              <span id="imageCount">0/7 images</span>
+            </div>
+            <p>Select up to 7 JPG, PNG or WEBP images at once, or add them in several selections before saving. Maximum 10 MB each. Images are centered in a 1600 × 1600 WebP frame before upload. The first image is used as the thumbnail.</p>
+            <label class="fileDrop">Choose product images
+              <input id="productImages" type="file" accept="image/jpeg,image/png,image/webp" multiple>
+            </label>
+            <div class="imagePreviewGrid" id="imagePreviewGrid"></div>
+          </section>
+          <section class="productMediaSection">
+            <div class="mediaSectionHead"><div><span class="eyebrow">Reference charts</span><h3>Size &amp; color charts</h3></div></div>
+            <div class="chartGrid">
+              <div class="chartEditor">
+                <label>Size chart URL<input id="sizeChartUrl" type="url" placeholder="https://..."></label>
+                <label>Or upload size chart<input id="sizeChartFile" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"></label>
+              </div>
+              <div class="chartEditor">
+                <label>Color chart URL<input id="colorChartUrl" type="url" placeholder="https://..."></label>
+                <label>Or upload color chart<input id="colorChartFile" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"></label>
+              </div>
+            </div>
+          </section>
+          <fieldset class="optionFieldset">
+            <legend>Available colors *</legend>
+            <p>Select every color that can be used for this product.</p>
+            <div class="optionPicker" id="colorOptions"><span class="optionLoading">Loading colors…</span></div>
+            <div class="inlineOptionCreator"><input id="newColorName" type="text" maxlength="100" placeholder="Color or pattern name"><button class="button ghost" id="addColorOption" type="button">+ Add color/pattern</button></div>
+          </fieldset>
+          <fieldset class="optionFieldset">
+            <legend>Available sizes *</legend>
+            <p>Select every size that can be used for this product.</p>
+            <div class="optionPicker" id="sizeOptions"><span class="optionLoading">Loading sizes…</span></div>
+            <div class="inlineOptionCreator"><input id="newSizeName" type="text" maxlength="100" placeholder="Size, e.g. M or 14 × 15 inch"><button class="button ghost" id="addSizeOption" type="button">+ Add size</button></div>
+          </fieldset>
+          <section class="productMediaSection fulfillmentEditor">
+            <div class="mediaSectionHead"><div><span class="eyebrow">Fulfillment</span><h3>Weight &amp; shipping price by size</h3></div></div>
+            <p>Enter packed weight and estimated shipping prices by region for each selected size. Prices use USD. Base cost and every shipping region are optional.</p>
+            <div class="fulfillmentTableWrap">
+              <table class="fulfillmentTable">
+                <thead><tr><th>Size</th><th>Weight (g)</th><th>Base cost (optional)</th><th>US</th><th>Canada</th><th>Europe</th><th>UK</th><th>Australia</th><th>Rest of world</th></tr></thead>
+                <tbody id="fulfillmentRows"><tr><td colspan="9">Select at least one size.</td></tr></tbody>
+              </table>
+            </div>
+          </section>
+          <div class="formMessage" id="productFormMessage" role="status"></div>
+          <div class="editorActions">
+            <span class="editorActionStatus" id="editorActionStatus" role="status"></span>
+            <button class="button ghost" id="publicationButton" type="button" hidden>Publish</button>
+            <a class="button ghost" href="products.html">Cancel</a>
+            <button class="button primary" id="saveProductButton" type="submit">Save changes</button>
+          </div>
+        </form>
+      </section>
+    </section>
+  </main>
+  <script src="js/supabase-rest.js?v=20260804-1"></script>
+  <script defer src="js/product-edit.js?v=20260804-5"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="vi">
+<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Import products — TEEMON</title><link rel="stylesheet" href="styles.css?v=20260803-10"></head>
+<body>
+<main class="adminShell">
+  <aside class="sidebar">
+    <a href="index.html" class="brand light"><span class="mark">T</span> TEEMON</a><span class="workspaceLabel">CATALOG MANAGEMENT</span>
+    <nav><a href="admin.html"><span>⌂</span>Dashboard</a><a class="catalogSidebarLink" href="catalog.html" target="_blank" rel="noopener"><span>↗</span>View catalog</a><a class="selected" href="products.html"><span>□</span>Products</a><a href="variants.html"><span>◇</span>Variants</a><a href="#"><span>◉</span>Fulfillment</a><a href="product-import.html"><span>⇅</span>Import / Export</a><a href="users.html"><span>♙</span>Users</a><a href="activity-logs.html"><span>◷</span>Activity logs</a></nav>
+    <div class="userCard"><div id="adminAvatar">DL</div><p><b id="adminName">Duyen Luong</b><span id="adminRole">Root Admin</span></p><button id="signOutBtn" type="button">Sign out</button></div>
+  </aside>
+  <section class="adminMain importProductsMain">
+    <header><div><a class="backLink" href="products.html">← Products</a><span class="eyebrow">Bulk Excel import</span><h1>Import products &amp; prices</h1><p>Create Draft products or update fulfillment prices for existing products.</p></div><a class="button ghost" id="downloadProductImportTemplate" href="#">Download template</a></header>
+    <section class="panel importGuidePanel"><div class="importSteps"><div><span>1</span><b>Download template</b><p>Keep the sheet and column names unchanged.</p></div><div><span>2</span><b>Choose a mode</b><p>Fill Products to create items, or leave it empty and fill Fulfillment to update prices.</p></div><div><span>3</span><b>Check and import</b><p>The latest values update matching Product Code + Size rows.</p></div></div></section>
+    <section class="panel importUploadPanel">
+      <div class="panelHead"><div><span class="eyebrow">Excel workbook</span><h2>Select import file</h2></div></div>
+      <div class="excelDropzoneWrap">
+        <label class="excelDropzone" for="productImportFile"><b>Choose an .xlsx file</b><span id="selectedImportFile">No file selected</span><input id="productImportFile" type="file" accept=".xlsx,.xls" hidden></label>
+        <button class="clearImportFile" id="clearProductImportFile" type="button" aria-label="Remove selected import file" title="Remove selected file" hidden>×</button>
+      </div>
+      <div class="formMessage" id="importMessage" role="status"></div>
+      <div class="importSummary" id="importSummary" hidden><article><b id="importProductCount">0</b><span>Products</span></article><button class="importSummaryCard isClickable" id="toggleFulfillmentPreview" type="button" aria-expanded="false"><b id="importFulfillmentCount">0</b><span>Fulfillment rows</span><small>View details ↓</small></button><article><b id="importErrorCount">0</b><span>Validation errors</span></article></div>
+      <div class="importErrors" id="importErrors" hidden></div>
+      <div class="importPreviewWrap" id="importPreviewWrap" hidden><table class="staffTable importPreviewTable"><thead><tr><th>Row</th><th>Product code</th><th>Product name</th><th>Category</th><th>Colors</th><th>Sizes</th><th>Status</th></tr></thead><tbody id="importPreviewBody"></tbody></table></div>
+      <div class="importPreviewWrap fulfillmentImportPreview" id="fulfillmentPreviewWrap" hidden><div class="importPreviewTitle"><div><span class="eyebrow">Fulfillment preview</span><h3>Weight &amp; shipping prices</h3></div><button id="closeFulfillmentPreview" type="button" aria-label="Close fulfillment details">×</button></div><table class="staffTable importPreviewTable fulfillmentPreviewTable"><thead><tr><th>Row</th><th>Product code</th><th>Size</th><th>Weight (g)</th><th>Base cost</th><th>US</th><th>Canada</th><th>Europe</th><th>UK</th><th>Australia</th><th>Rest of world</th></tr></thead><tbody id="fulfillmentPreviewBody"></tbody></table></div>
+      <div class="editorActions importActions"><a class="button ghost" href="products.html">Cancel</a><button class="button primary" id="startProductImport" type="button" disabled>Import Draft products</button></div>
+    </section>
+  </section>
+</main>
+<script src="js/supabase-rest.js?v=20260801-1"></script><script src="js/product-import-template-data.js?v=20260801-2"></script><script type="module" src="js/product-import.js?v=20260804-2"></script>
+</body></html>

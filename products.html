@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Products — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260803-10">
+</head>
+<body>
+  <main class="adminShell">
+    <aside class="sidebar">
+      <a href="index.html" class="brand light"><span class="mark">T</span> TEEMON</a>
+      <span class="workspaceLabel">CATALOG MANAGEMENT</span>
+      <nav>
+        <a href="admin.html"><span>⌂</span>Dashboard</a>
+        <a class="catalogSidebarLink" href="catalog.html" target="_blank" rel="noopener"><span>↗</span>View catalog</a>
+        <a class="selected" href="products.html"><span>□</span>Products <b id="sidebarProductCount">0</b></a>
+        <a href="variants.html"><span>◇</span>Variants</a>
+        <a href="#"><span>◉</span>Fulfillment</a>
+        <a href="#"><span>⇅</span>Import / Export</a>
+        <a href="users.html" id="usersNavLink"><span>♙</span>Users</a>
+        <a href="activity-logs.html" id="activityLogsNavLink"><span>◷</span>Activity logs</a>
+      </nav>
+      <div class="userCard">
+        <div id="adminAvatar">DL</div>
+        <p><b id="adminName">Duyen Luong</b><span id="adminRole">Root Admin</span></p>
+        <button id="signOutBtn" type="button">Sign out</button>
+      </div>
+    </aside>
+
+    <section class="adminMain productsMain">
+      <header class="productPageHeader">
+        <div><span class="eyebrow">Catalog management</span><h1>Products</h1><p>Search, review and manage product records.</p></div>
+        <div class="productHeaderActions">
+          <a class="button productTopButton" id="importProductButton" href="product-import.html">Import Excel</a>
+          <a class="button productTopButton" id="newProductButton" href="product-new.html">＋ New product</a>
+        </div>
+      </header>
+
+      <div class="successNotice" id="productSuccessNotice" role="status" aria-live="polite" hidden>
+        <span class="successNoticeIcon">✓</span>
+        <div><b id="productSuccessTitle">Draft saved successfully</b><p id="productSuccessMessage">The new product is now available in the product list.</p></div>
+        <button id="closeProductSuccess" type="button" aria-label="Close notification">×</button>
+      </div>
+
+      <section class="panel productListPanel">
+        <div class="productFilters">
+          <input id="productSearch" type="search" placeholder="Search product name or code" aria-label="Search products">
+          <select id="productCategory" aria-label="Filter by category"><option value="">All categories</option></select>
+          <select id="productStatus" aria-label="Filter by publication status">
+            <option value="">All statuses</option>
+            <option value="DRAFT">Draft</option>
+            <option value="PUBLISHED">Published</option>
+            <option value="UNPUBLISHED">Unpublished</option>
+            <option value="ARCHIVED">Archived</option>
+          </select>
+        </div>
+        <div class="bulkProductActions" id="bulkProductActions" hidden>
+          <span><b id="selectedProductCount">0</b> selected</span>
+          <button class="button primary" id="publishSelectedProducts" type="button">Publish selected</button>
+          <button class="button ghost dangerButton" id="deactivateSelectedProducts" type="button">Deactivate selected</button>
+          <button class="button dangerSolidButton" id="deleteSelectedProducts" type="button">Delete selected</button>
+        </div>
+        <div class="formMessage" id="productMessage" role="status"></div>
+        <div class="staffTableWrap">
+          <table class="staffTable productTable">
+            <thead><tr><th class="selectColumn"><input id="selectAllProducts" type="checkbox" aria-label="Select all products on this page"></th><th>Product</th><th>Category</th><th>Status</th><th>Updated</th><th>Updated by</th><th>Action</th><th class="productViewColumn">View</th><th class="featuredColumn">Featured</th></tr></thead>
+            <tbody id="productTableBody"></tbody>
+          </table>
+        </div>
+        <div class="activityPagination">
+          <span id="productCount">0 products</span>
+          <div>
+            <button id="previousProducts" type="button">← Previous</button>
+            <span id="productPage">Page 1</span>
+            <button id="nextProducts" type="button">Next →</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script src="js/supabase-rest.js?v=20260801-1"></script>
+  <script defer src="js/products.js?v=20260804-2"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Activity Logs — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260803-10">
+</head>
+<body>
+  <main class="adminShell">
+    <aside class="sidebar">
+      <a href="index.html" class="brand light"><span class="mark">T</span> TEEMON</a>
+      <span class="workspaceLabel">CATALOG MANAGEMENT</span>
+      <nav>
+        <a href="admin.html"><span>⌂</span>Dashboard</a>
+        <a class="catalogSidebarLink" href="catalog.html" target="_blank" rel="noopener"><span>↗</span>View catalog</a>
+        <a href="products.html"><span>□</span>Products</a>
+        <a href="variants.html"><span>◇</span>Variants</a>
+        <a href="#"><span>◉</span>Fulfillment</a>
+        <a href="#"><span>⇅</span>Import / Export</a>
+        <a href="users.html"><span>♙</span>Users</a>
+        <a class="selected" href="activity-logs.html"><span>◷</span>Activity logs</a>
+      </nav>
+      <div class="userCard">
+        <div id="adminAvatar">DL</div>
+        <p><b id="adminName">Duyen Luong</b><span id="adminRole">Root Admin</span></p>
+        <button id="signOutBtn" type="button">Sign out</button>
+      </div>
+    </aside>
+
+    <section class="adminMain activityMain">
+      <header>
+        <div>
+          <span class="eyebrow">Audit trail</span>
+          <h1>Activity Logs</h1>
+          <p>Review user, product and inventory changes across the catalog. Logs are retained for 6 months.</p>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="activityFilters">
+          <label>Search actor
+            <input id="logSearch" type="search" placeholder="Email address">
+          </label>
+          <label>Activity
+            <select id="logAction">
+              <option value="">All activities</option>
+              <optgroup label="Users">
+                <option value="CREATE_USER">Create user</option>
+                <option value="SET_PASSWORD">Reset password</option>
+                <option value="ACTIVATE_USER">Activate user</option>
+                <option value="DEACTIVATE_USER">Deactivate user</option>
+              </optgroup>
+              <optgroup label="Products">
+                <option value="CREATE_PRODUCT">Create product</option>
+                <option value="UPDATE_PRODUCT">Edit product</option>
+                <option value="PUBLISH_PRODUCT">Publish product</option>
+                <option value="UNPUBLISH_PRODUCT">Unpublish product</option>
+                <option value="UPDATE_VARIANT">Edit variant</option>
+                <option value="UPDATE_STOCK">Update stock</option>
+              </optgroup>
+              <optgroup label="Master data">
+                <option value="CREATE_COLOR">Create color</option>
+                <option value="UPDATE_COLOR">Edit color</option>
+                <option value="DEACTIVATE_COLOR">Deactivate color</option>
+                <option value="CREATE_SIZE">Create size</option>
+                <option value="UPDATE_SIZE">Edit size</option>
+                <option value="DEACTIVATE_SIZE">Deactivate size</option>
+              </optgroup>
+            </select>
+          </label>
+          <label>Entity
+            <select id="logEntity">
+              <option value="">All entities</option>
+              <option value="user">User</option>
+              <option value="product">Product</option>
+              <option value="variant">Variant</option>
+              <option value="inventory">Inventory</option>
+              <option value="color">Color</option>
+              <option value="size">Size</option>
+            </select>
+          </label>
+          <button class="button primary" id="applyLogFilters" type="button">Apply filters</button>
+        </div>
+        <div class="formMessage" id="logMessage" role="status"></div>
+        <div class="staffTableWrap">
+          <table class="staffTable activityTable">
+            <thead><tr><th>Time</th><th>Actor</th><th>Activity</th><th>Entity</th><th>Details</th></tr></thead>
+            <tbody id="logTableBody"></tbody>
+          </table>
+        </div>
+        <div class="activityPagination">
+          <span id="logCount">0 activities</span>
+          <div>
+            <button id="previousLogs" type="button">← Previous</button>
+            <span id="logPage">Page 1</span>
+            <button id="nextLogs" type="button">Next →</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+
+  <dialog class="passwordDialog logDialog" id="logDialog">
+    <div class="panelHead">
+      <div><span class="eyebrow">Audit detail</span><h2 id="logDialogTitle">Activity</h2></div>
+      <button id="closeLogDialog" type="button" aria-label="Close">×</button>
+    </div>
+    <div id="logDialogContent"></div>
+  </dialog>
+  <script type="module" src="js/activity-logs.js"></script>
+</body>
+</html>

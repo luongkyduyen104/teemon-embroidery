@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign in — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260803-10">
+</head>
+
+<body>
+  <main class="login-page">
+    <form id="loginForm" class="login-card">
+      <a href="index.html" class="brand">
+        <span class="mark">T</span> TEEMON
+      </a>
+
+      <p class="eyebrow">Catalog management</p>
+      <h1>Welcome back.</h1>
+
+      <div class="serverWarning" id="serverWarning" hidden>
+        <b>Website đang được mở sai cách</b>
+        <p>Hãy mở website bằng Live Server trong VS Code. Không mở trực tiếp file login.html.</p>
+        <p>Địa chỉ đúng sẽ bắt đầu bằng <code>http://127.0.0.1:5500</code> hoặc <code>http://localhost:5500</code>.</p>
+      </div>
+
+      <label>
+        Email
+        <input id="email" type="email" required autocomplete="email">
+      </label>
+
+      <label>
+        Password
+        <input
+          id="password"
+          type="password"
+          required
+          autocomplete="current-password"
+        >
+      </label>
+
+      <p id="loginMessage"></p>
+
+      <button class="button primary" type="submit">
+        Sign in →
+      </button>
+    </form>
+  </main>
+
+  <script>
+    if (window.location.protocol === "file:") {
+      document.querySelector("#serverWarning").hidden = false;
+      document.querySelector("#loginForm button[type='submit']").disabled = true;
+      document.querySelector("#loginMessage").textContent = "Start Live Server, then sign in again using the HTTP address.";
+    }
+  </script>
+  <script type="module" src="js/auth.js?v=20260801-1"></script>
+</body>
+</html>
