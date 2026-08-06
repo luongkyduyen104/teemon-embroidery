@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Users — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260803-10">
+</head>
+<body>
+  <main class="adminShell">
+    <aside class="sidebar">
+      <a href="index.html" class="brand light"><span class="mark">T</span> TEEMON</a>
+      <span class="workspaceLabel">CATALOG MANAGEMENT</span>
+      <nav>
+        <a href="admin.html"><span>⌂</span>Dashboard</a>
+        <a class="catalogSidebarLink" href="catalog.html" target="_blank" rel="noopener"><span>↗</span>View catalog</a>
+        <a href="products.html"><span>□</span>Products <b>24</b></a>
+        <a href="variants.html"><span>◇</span>Variants</a>
+        <a href="#"><span>◉</span>Fulfillment</a>
+        <a href="#"><span>⇅</span>Import / Export</a>
+        <a class="selected" href="users.html"><span>♙</span>Users</a>
+        <a href="activity-logs.html"><span>◷</span>Activity logs</a>
+      </nav>
+      <div class="userCard">
+        <div id="adminAvatar">DL</div>
+        <p><b id="adminName">Duyen Luong</b><span>Root Admin</span></p>
+        <button id="signOutBtn" type="button">Sign out</button>
+      </div>
+    </aside>
+    <section class="adminMain usersMain">
+      <header>
+        <div><span class="eyebrow">Access control</span><h1>Users &amp; staff</h1><p>Manage your profile and staff access in one place.</p></div>
+        <button class="button primary" id="showCreateStaff" type="button">＋ New staff</button>
+      </header>
+      <div class="usersLayout">
+        <section class="panel">
+          <div class="panelHead"><div><span class="eyebrow">Your account</span><h2>Admin information</h2></div></div>
+          <form id="profileForm" class="adminForm">
+            <label>Full name<input id="profileName" required autocomplete="name"></label>
+            <label>Email<input id="profileEmail" type="email" disabled></label>
+            <label>Phone<input id="profilePhone" type="tel" autocomplete="tel"></label>
+            <div class="formMessage" id="profileMessage" role="status"></div>
+            <button class="button primary" type="submit">Save changes</button>
+          </form>
+        </section>
+        <section class="panel createStaffPanel" id="createStaffPanel" hidden>
+          <div class="panelHead"><div><span class="eyebrow">New account</span><h2>Create staff</h2></div><button id="closeCreateStaff" type="button" aria-label="Close">×</button></div>
+          <form id="staffForm" class="adminForm">
+            <label>Full name<input id="staffName" required autocomplete="off"></label>
+            <label>Email<input id="staffEmail" type="email" required autocomplete="off"></label>
+            <label>Staff role
+              <select id="staffRole" required>
+                <option value="sales">Sales — view and export pricing</option>
+                <option value="warehouse">Warehouse — update stock status</option>
+              </select>
+            </label>
+            <label>Temporary password<input id="staffPassword" type="password" minlength="8" required autocomplete="new-password"></label>
+            <div class="formMessage" id="staffMessage" role="status"></div>
+            <button class="button primary" type="submit">Create staff account</button>
+          </form>
+        </section>
+      </div>
+      <section class="panel staffPanel">
+        <div class="panelHead">
+          <div><span class="eyebrow">Team access</span><h2>Staff accounts</h2></div>
+          <input class="tableSearch" id="staffSearch" type="search" placeholder="Search staff" aria-label="Search staff">
+        </div>
+        <div class="formMessage" id="staffListMessage" role="status"></div>
+        <div class="staffTableWrap">
+          <table class="staffTable">
+            <thead><tr><th>User</th><th>Role</th><th>Status</th><th>Created</th><th>Action</th></tr></thead>
+            <tbody id="staffTableBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </section>
+  </main>
+  <dialog class="passwordDialog" id="passwordDialog">
+    <form id="resetPasswordForm" class="adminForm">
+      <div class="panelHead">
+        <div><span class="eyebrow">Security</span><h2>Reset staff password</h2></div>
+        <button id="closePasswordDialog" type="button" aria-label="Close">×</button>
+      </div>
+      <p id="resetPasswordUser" class="dialogHint"></p>
+      <label>New temporary password<input id="newStaffPassword" type="password" minlength="8" required autocomplete="new-password"></label>
+      <label>Confirm password<input id="confirmStaffPassword" type="password" minlength="8" required autocomplete="new-password"></label>
+      <div class="formMessage" id="resetPasswordMessage" role="status"></div>
+      <button class="button primary" type="submit">Set new password</button>
+    </form>
+  </dialog>
+  <script type="module" src="js/users.js"></script>
+</body>
+</html>

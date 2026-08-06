@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Variants — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260804-1">
+</head>
+<body>
+  <main class="adminShell">
+    <aside class="sidebar">
+      <a href="index.html" class="brand light"><span class="mark">T</span> TEEMON</a>
+      <span class="workspaceLabel">CATALOG MANAGEMENT</span>
+      <nav>
+        <a href="admin.html"><span>⌂</span>Dashboard</a>
+        <a class="catalogSidebarLink" href="catalog.html" target="_blank" rel="noopener"><span>↗</span>View catalog</a>
+        <a href="products.html"><span>□</span>Products</a>
+        <a class="selected" href="variants.html"><span>◇</span>Variants</a>
+        <a href="#"><span>◉</span>Fulfillment</a>
+        <a href="#"><span>⇅</span>Import / Export</a>
+        <a href="users.html" id="usersNavLink"><span>♙</span>Users</a>
+        <a href="activity-logs.html" id="activityLogsNavLink"><span>◷</span>Activity logs</a>
+      </nav>
+      <div class="userCard">
+        <div id="adminAvatar">DL</div>
+        <p><b id="adminName">Duyen Luong</b><span id="adminRole">Root Admin</span></p>
+        <button id="signOutBtn" type="button">Sign out</button>
+      </div>
+    </aside>
+
+    <section class="adminMain variantsMain">
+      <header class="variantsHeader">
+        <div>
+          <span class="eyebrow">Variant management</span>
+          <h1>Product variants</h1>
+          <p>Review every product, color and size combination with fulfillment pricing.</p>
+        </div>
+        <button class="button primary" id="exportVariantsBtn" type="button" disabled>⇩ Export Excel</button>
+      </header>
+
+      <section class="panel variantsPanel">
+        <div class="variantFilters" aria-label="Variant filters">
+          <label>
+            <span>Search</span>
+            <input id="variantSearch" type="search" placeholder="Product, code, color, size or SKU">
+          </label>
+          <label>
+            <span>Product</span>
+            <select id="variantProductFilter"><option value="">All products</option></select>
+          </label>
+          <label>
+            <span>Color</span>
+            <select id="variantColorFilter"><option value="">All colors</option></select>
+          </label>
+          <label>
+            <span>Size</span>
+            <select id="variantSizeFilter"><option value="">All sizes</option></select>
+          </label>
+        </div>
+
+        <div class="variantTableMeta">
+          <p id="variantMessage" role="status">Loading variants…</p>
+          <p><b id="variantCount">0</b> variants</p>
+        </div>
+
+        <div class="variantTableWrap">
+          <table class="variantMatrix">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Color</th>
+                <th>Size</th>
+                <th>Product code</th>
+                <th>SKU</th>
+                <th class="numberCell">Weight (g)</th>
+                <th class="numberCell">Base cost</th>
+                <th class="shippingGroup" colspan="6">Shipping fee (USD)</th>
+                <th>Status</th>
+              </tr>
+              <tr class="variantSubhead">
+                <th colspan="7"></th>
+                <th>US</th>
+                <th>Canada</th>
+                <th>Europe</th>
+                <th>UK</th>
+                <th>Australia</th>
+                <th>Rest of world</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody id="variantTableBody"></tbody>
+          </table>
+        </div>
+        <div class="variantPagination" id="variantPagination" aria-label="Variant pagination">
+          <p><span id="variantRange">0–0</span> of <span id="variantTotal">0</span> variants</p>
+          <div>
+            <button id="variantPreviousPage" type="button">← Previous</button>
+            <span id="variantPageStatus">Page 1 of 1</span>
+            <button id="variantNextPage" type="button">Next →</button>
+          </div>
+        </div>
+      </section>
+    </section>
+  </main>
+  <script type="module" src="js/variants.js?v=20260804-1"></script>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Product — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260804-5">
+  <script src="js/supabase-rest.js?v=20260801-1" defer></script>
+  <script src="js/product-detail.js?v=20260804-3" defer></script>
+</head>
+<body>
+  <header class="topbar compact"><a href="index.html" class="brand"><span class="mark">T</span> TEEMON</a><nav><a href="catalog.html" class="active">Catalog</a><a href="index.html">Home</a></nav><a href="admin.html" class="adminLink">Internal portal ↗</a></header>
+  <main class="publicProductMain">
+    <a class="publicProductBack" href="catalog.html">← Back to catalog</a>
+    <div class="publicProductError" id="productError" hidden><div><span class="eyebrow">Product unavailable</span><h1>This product could not be found.</h1><p>It may have been deactivated or removed from the catalog.</p></div></div>
+    <section class="publicProductLayout" id="productDetail" hidden>
+      <div class="publicGallery">
+        <div class="publicGalleryStage">
+          <img class="publicGalleryMain" id="mainProductImage" alt="">
+          <button class="galleryArrow galleryPrevious" id="previousProductImage" type="button" aria-label="Previous product image">←</button>
+          <button class="galleryArrow galleryNext" id="nextProductImage" type="button" aria-label="Next product image">→</button>
+          <span class="galleryCounter" id="galleryCounter"></span>
+        </div>
+        <div class="publicThumbnails" id="productThumbnails"></div>
+      </div>
+      <div class="publicProductInfo">
+        <span class="eyebrow" id="productCategory"></span>
+        <h1 id="productName"></h1>
+        <p class="publicProductCode" id="productCode"></p>
+        <p class="publicProductLead" id="productShortDescription"></p>
+        <section class="publicOptionBlock"><h2>Available colors</h2><div class="publicSwatches" id="productColors"></div></section>
+        <section class="publicOptionBlock"><h2>Available sizes</h2><div class="publicSizes" id="productSizes"></div></section>
+        <section class="publicOptionBlock protectedFulfillment" id="protectedFulfillment" hidden>
+          <h2>Weight &amp; fulfillment by size</h2>
+          <div id="fulfillmentGate"></div>
+          <div class="publicFulfillmentTableWrap" id="productFulfillment" hidden></div>
+        </section>
+      </div>
+      <section class="expandableProductText internalDesignNote galleryDesignNote" id="designNoteSection" hidden>
+        <span class="internalOnlyBadge">Internal only</span>
+        <h2>Note for design</h2>
+        <div class="expandableProductTextBody" id="designNote"></div>
+        <button class="expandableTextToggle" id="designNoteToggle" type="button" hidden>View more</button>
+      </section>
+      <section class="expandableProductText productDescriptionPanel" id="productDescriptionSection">
+        <h2>Product description</h2>
+        <div class="expandableProductTextBody publicProductDescription" id="productDescription"></div>
+        <button class="expandableTextToggle" id="productDescriptionToggle" type="button" hidden>View more</button>
+      </section>
+      <section class="publicChartGallery" id="productCharts" hidden></section>
+    </section>
+  </main>
+  <dialog class="productLightbox" id="productLightbox" aria-label="Full screen product image">
+    <button class="productLightboxClose" id="closeProductLightbox" type="button" aria-label="Close full screen image">&times;</button>
+    <button class="productLightboxArrow productLightboxPrevious" id="lightboxPreviousImage" type="button" aria-label="Previous image">&larr;</button>
+    <figure>
+      <img id="lightboxProductImage" alt="">
+      <figcaption id="lightboxCounter"></figcaption>
+    </figure>
+    <button class="productLightboxArrow productLightboxNext" id="lightboxNextImage" type="button" aria-label="Next image">&rarr;</button>
+  </dialog>
+</body>
+</html>

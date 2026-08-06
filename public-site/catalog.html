@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Catalog — TEEMON</title>
+  <link rel="stylesheet" href="styles.css?v=20260805-2">
+  <script src="script.js?v=20260805-2" defer></script>
+</head>
+<body>
+<main class="catalogPage">
+  <header class="topbar compact"><a href="index.html" class="brand"><span class="mark">T</span> TEEMON</a><nav><a href="catalog.html" class="active">Catalog</a><a href="index.html">Home</a></nav><a href="admin.html" class="adminLink">Internal portal ↗</a></header>
+  <section class="catalogHero"><span class="eyebrow">Public catalog</span><h1>Find your next best seller.</h1></section>
+  <section class="catalogSearchDock" aria-label="Product search and filter tools">
+    <div class="catalogToolbar">
+      <div class="searchBox">
+  <span aria-hidden="true">⌕</span>
+
+  <input
+    id="search"
+    type="search"
+    aria-label="Search products"
+    placeholder=""
+    autocomplete="off"
+    spellcheck="false"
+  >
+
+  <button id="clearSearch" type="button" hidden>
+    Clear
+  </button>
+</div>
+      <div class="catalogToolbarFilters">
+        <div id="filters"><b>Categories</b><div id="categoryFilters"><label><input type="radio" name="cat" value="All products" checked> All <span>0</span></label></div></div>
+        <label class="catalogSort"><span>Sort</span><select id="sort" aria-label="Sort products"><option value="newest">Newest first</option><option value="name">Name A–Z</option></select></label>
+      </div>
+    </div>
+  </section>
+  <section class="catalogBody">
+    <div class="results">
+      <div class="resultHead"><p><b id="resultCount">Loading products…</b> ready to explore</p></div>
+      <div class="catalogGrid" id="catalogGrid"></div>
+      <div class="emptyState" id="emptyState" hidden><span>NO PRODUCTS</span><h2>No published products yet.</h2><p>Products will appear here after an administrator publishes them.</p><button class="button primary" id="resetFilters">Reset filters</button></div>
+      <nav class="catalogPagination" id="catalogPagination" aria-label="Catalog pages">
+        <div class="catalogPageButtons" id="catalogPageButtons"></div>
+        <div class="catalogPageStatus">
+          <button id="previousPage" type="button" aria-label="Previous page">←</button>
+          <span><b id="pageNumber">1</b> / <b id="totalPages">1</b></span>
+          <span class="catalogPageSize">20 products / page</span>
+          <button id="nextPage" type="button" aria-label="Next page">→</button>
+        </div>
+      </nav>
+    </div>
+  </section>
+</main>
+</body>
+</html>
