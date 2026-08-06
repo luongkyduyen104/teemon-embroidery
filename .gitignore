@@ -2,7 +2,9 @@
 node_modules/
 
 # Build output
-build/
+# Ignore generated files in build, but retain the Vite source plugin
+build/*
+!build/sites-vite-plugin.ts
 dist/
 .next/
 out/
