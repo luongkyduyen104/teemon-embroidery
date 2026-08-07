@@ -80,7 +80,26 @@ export async function onRequestPost(context: {
     return json(
       {
         success: false,
-        error: "Unauthorized"
+        error: "Unauthorized",
+
+        // Temporary debug.
+        // Does NOT expose the actual token.
+        debug: {
+          cloudflare_token_present:
+            Boolean(expectedToken),
+
+          cloudflare_token_length:
+            expectedToken?.length ?? 0,
+
+          supplied_token_present:
+            Boolean(suppliedToken),
+
+          supplied_token_length:
+            suppliedToken?.length ?? 0,
+
+          tokens_match:
+            suppliedToken === expectedToken
+        }
       },
       401
     );
@@ -98,14 +117,29 @@ export async function onRequestPost(context: {
       {
         success: false,
         error:
-          "Cloudflare server configuration is incomplete"
+          "Cloudflare server configuration is incomplete",
+
+        config: {
+          supabase_url_present:
+            Boolean(env.SUPABASE_URL),
+
+          service_role_key_present:
+            Boolean(
+              env.SUPABASE_SERVICE_ROLE_KEY
+            ),
+
+          google_sheet_user_id_present:
+            Boolean(
+              env.GOOGLE_SHEET_USER_ID
+            )
+        }
       },
       500
     );
   }
 
   /*
-   * 3. Read request.
+   * 3. Read request body.
    */
   const body = await request
     .json()
@@ -148,19 +182,19 @@ export async function onRequestPost(context: {
   }
 
   /*
-   * 4. Import one product at a time.
+   * 4. Import products one by one.
    *
-   * Each RPC is internally transactional.
-   * If one product fails, the other products
-   * can continue.
+   * Each Supabase RPC call is transactional
+   * for that product.
    */
-  const results: Array<Record<string, unknown>> = [];
+  const results: Array<
+    Record<string, unknown>
+  > = [];
 
   for (const product of products) {
-    const code =
-      String(
-        product?.product_code ?? ""
-      ).trim();
+    const code = String(
+      product?.product_code ?? ""
+    ).trim();
 
     if (!code) {
       results.push({
@@ -177,96 +211,97 @@ export async function onRequestPost(context: {
         `${env.SUPABASE_URL}` +
         `/rest/v1/rpc/google_sheet_import_product`;
 
-      const rpcResponse = await fetch(
-        rpcUrl,
-        {
-          method: "POST",
+      const rpcResponse =
+        await fetch(
+          rpcUrl,
+          {
+            method: "POST",
 
-          headers: {
-            "Content-Type":
-              "application/json",
+            headers: {
+              "Content-Type":
+                "application/json",
 
-            "apikey":
-              env.SUPABASE_SERVICE_ROLE_KEY,
+              apikey:
+                env.SUPABASE_SERVICE_ROLE_KEY,
 
-            "Authorization":
-              `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`
-          },
-
-          body: JSON.stringify({
-            p_actor_user_id:
-              env.GOOGLE_SHEET_USER_ID,
-
-            p_product: {
-              product_code:
-                product.product_code,
-
-              product_name:
-                product.product_name,
-
-              slug:
-                product.slug,
-
-              category_code:
-                product.category_code,
-
-              short_description:
-                product.short_description ??
-                null,
-
-              description:
-                product.description,
-
-              keywords:
-                Array.isArray(
-                  product.keywords
-                )
-                  ? product.keywords
-                  : [],
-
-              colors:
-                Array.isArray(
-                  product.colors
-                )
-                  ? product.colors
-                  : [],
-
-              sizes:
-                Array.isArray(
-                  product.sizes
-                )
-                  ? product.sizes
-                  : [],
-
-              design_note:
-                product.design_note ??
-                null,
-
-              size_chart_url:
-                product.size_chart_url ??
-                null,
-
-              color_chart_url:
-                product.color_chart_url ??
-                null,
-
-              mockup_urls:
-                Array.isArray(
-                  product.mockup_urls
-                )
-                  ? product.mockup_urls
-                  : []
+              Authorization:
+                `Bearer ${env.SUPABASE_SERVICE_ROLE_KEY}`
             },
 
-            p_fulfillment:
-              Array.isArray(
-                product.fulfillment
-              )
-                ? product.fulfillment
-                : []
-          })
-        }
-      );
+            body: JSON.stringify({
+              p_actor_user_id:
+                env.GOOGLE_SHEET_USER_ID,
+
+              p_product: {
+                product_code:
+                  product.product_code,
+
+                product_name:
+                  product.product_name,
+
+                slug:
+                  product.slug,
+
+                category_code:
+                  product.category_code,
+
+                short_description:
+                  product.short_description ??
+                  null,
+
+                description:
+                  product.description,
+
+                keywords:
+                  Array.isArray(
+                    product.keywords
+                  )
+                    ? product.keywords
+                    : [],
+
+                colors:
+                  Array.isArray(
+                    product.colors
+                  )
+                    ? product.colors
+                    : [],
+
+                sizes:
+                  Array.isArray(
+                    product.sizes
+                  )
+                    ? product.sizes
+                    : [],
+
+                design_note:
+                  product.design_note ??
+                  null,
+
+                size_chart_url:
+                  product.size_chart_url ??
+                  null,
+
+                color_chart_url:
+                  product.color_chart_url ??
+                  null,
+
+                mockup_urls:
+                  Array.isArray(
+                    product.mockup_urls
+                  )
+                    ? product.mockup_urls
+                    : []
+              },
+
+              p_fulfillment:
+                Array.isArray(
+                  product.fulfillment
+                )
+                  ? product.fulfillment
+                  : []
+            })
+          }
+        );
 
       const responseText =
         await rpcResponse.text();
@@ -284,26 +319,30 @@ export async function onRequestPost(context: {
       }
 
       if (!rpcResponse.ok) {
-        const message =
+        let message =
+          responseText ||
+          "Supabase RPC failed";
+
+        if (
           typeof responseBody === "object" &&
           responseBody !== null &&
           "message" in responseBody
-            ? String(
-                (
-                  responseBody as {
-                    message?: unknown;
-                  }
-                ).message
-              )
-            : String(
-                responseText ||
-                "Supabase RPC failed"
-              );
+        ) {
+          message = String(
+            (
+              responseBody as {
+                message?: unknown;
+              }
+            ).message
+          );
+        }
 
         results.push({
           product_code: code,
           success: false,
-          error: message
+          error: message,
+          http_status:
+            rpcResponse.status
         });
 
         continue;
@@ -319,6 +358,7 @@ export async function onRequestPost(context: {
       results.push({
         product_code: code,
         success: false,
+
         error:
           error instanceof Error
             ? error.message
@@ -329,20 +369,28 @@ export async function onRequestPost(context: {
 
   const succeeded =
     results.filter(
-      item => item.success === true
+      item =>
+        item.success === true
     ).length;
 
   const failed =
     results.length - succeeded;
 
   return json({
-    success: failed === 0,
+    success:
+      failed === 0,
+
     source:
-      body.source || "google_sheets",
+      body.source ||
+      "google_sheets",
+
     processed:
       results.length,
+
     succeeded,
+
     failed,
+
     results
   });
 }
