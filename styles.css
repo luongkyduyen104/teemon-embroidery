@@ -180,7 +180,11 @@ html {
 
 .workspaceLabel{display:none}
 .sidebar nav .catalogSidebarLink{margin-top:14px;border:0;color:#fff}.sidebar nav .catalogSidebarLink:hover{color:var(--lime)}
-.sidebar nav a>span:first-child{width:20px;height:20px;flex:0 0 20px;font-size:0;background-color:currentColor;mask-repeat:no-repeat;mask-position:center;mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;-webkit-mask-size:contain}
+.sidebar nav a>span:first-child{width:24px;height:24px;flex:0 0 24px;font-size:0;background-color:var(--lime);mask-repeat:no-repeat;mask-position:center;mask-size:contain;-webkit-mask-repeat:no-repeat;-webkit-mask-position:center;-webkit-mask-size:contain;filter:drop-shadow(0 0 5px #d9f34a38);transition:background-color .15s,transform .15s,filter .15s}
+.sidebar nav a:hover>span:first-child{background-color:#fff;transform:scale(1.08);filter:drop-shadow(0 0 7px #d9f34a66)}
+.sidebar nav a.selected>span:first-child{background-color:#19211e;filter:none}
+.sidebar nav a:nth-child(5)>span:first-child{display:grid;place-items:center;background:none;color:var(--lime);font-size:20px;filter:none}
+.sidebar nav a.selected:nth-child(5)>span:first-child{color:#19211e}
 .sidebar nav a:nth-child(1)>span:first-child{mask-image:url("Icon/dashboard.svg");-webkit-mask-image:url("Icon/dashboard.svg")}
 .sidebar nav a:nth-child(2)>span:first-child{mask-image:url("Icon/catalog.svg");-webkit-mask-image:url("Icon/catalog.svg")}
 .sidebar nav a:nth-child(3)>span:first-child{mask-image:url("Icon/Products.svg");-webkit-mask-image:url("Icon/Products.svg")}
