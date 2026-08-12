@@ -158,8 +158,28 @@ function populateSelect(selector, rows, valueKey, labelKey) {
 
 function populateFilters() {
   populateSelect("#variantProductFilter", allVariants.map((row) => row.products), "id", "product_name");
-  populateSelect("#variantColorFilter", allVariants.map((row) => row.colors), "id", "name");
-  populateSelect("#variantSizeFilter", allVariants.map((row) => row.sizes), "id", "name");
+  populateDependentFilters();
+}
+
+function populateDependentFilters() {
+  const productId = document.querySelector("#variantProductFilter").value;
+  const colorSelect = document.querySelector("#variantColorFilter");
+  const sizeSelect = document.querySelector("#variantSizeFilter");
+  const previousColorId = colorSelect.value;
+  const previousSizeId = sizeSelect.value;
+  const productVariants = productId
+    ? allVariants.filter((row) => row.product_id === productId)
+    : allVariants;
+
+  populateSelect("#variantColorFilter", productVariants.map((row) => row.colors), "id", "name");
+  populateSelect("#variantSizeFilter", productVariants.map((row) => row.sizes), "id", "name");
+
+  if ([...colorSelect.options].some((option) => option.value === previousColorId)) {
+    colorSelect.value = previousColorId;
+  }
+  if ([...sizeSelect.options].some((option) => option.value === previousSizeId)) {
+    sizeSelect.value = previousSizeId;
+  }
 }
 
 function applyFilters() {
@@ -260,9 +280,13 @@ async function exportExcel() {
   }
 }
 
-["#variantSearch", "#variantProductFilter", "#variantColorFilter", "#variantSizeFilter"].forEach((selector) => {
-  document.querySelector(selector).addEventListener(selector === "#variantSearch" ? "input" : "change", applyFilters);
+document.querySelector("#variantSearch").addEventListener("input", applyFilters);
+document.querySelector("#variantProductFilter").addEventListener("change", () => {
+  populateDependentFilters();
+  applyFilters();
 });
+document.querySelector("#variantColorFilter").addEventListener("change", applyFilters);
+document.querySelector("#variantSizeFilter").addEventListener("change", applyFilters);
 
 document.querySelector("#exportVariantsBtn").addEventListener("click", exportExcel);
 document.querySelector("#variantPreviousPage").addEventListener("click", () => changeVariantPage(-1));
