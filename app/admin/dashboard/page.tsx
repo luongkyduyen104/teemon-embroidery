@@ -1,7 +1,16 @@
 "use client";
 import Link from "next/link";
 
-const nav = ["Dashboard","Products","Variants","Fulfillment","Import / Export","Users","Activity logs"];
+const nav = [
+  ["Dashboard", "/Icon/dashboard.svg"],
+  ["View catalog", "/Icon/catalog.svg"],
+  ["Products", "/Icon/Products.svg"],
+  ["Variants", "/Icon/Variant.svg"],
+  ["Fulfillment", ""],
+  ["Import / Export", "/Icon/Import_export.svg"],
+  ["Users", "/Icon/users.svg"],
+  ["Activity logs", "/Icon/Activity_logs.svg"]
+];
 const activity = [
   ["Maya Chen","Published","Essential Heavy Tee","2 min ago"],
   ["Noah Williams","Updated stock","TSHIRT-001-BLK-M","18 min ago"],
@@ -14,8 +23,7 @@ export default function Dashboard() {
     <main className="adminShell">
       <aside className="sidebar">
         <Link href="/" className="brand light"><span className="mark">T</span> TEEMON</Link>
-        <span className="workspaceLabel">CATALOG MANAGEMENT</span>
-        <nav>{nav.map((item,i)=><a className={i===0?"selected":""} href="#" key={item}><span>{["⌂","□","◇","◎","⇅","♙","◷"][i]}</span>{item}{item==="Products"&&<b>24</b>}</a>)}</nav>
+        <nav>{nav.map(([item, icon],i)=><a className={`${i===0?"selected":""}${item==="View catalog"?" catalogSidebarLink":""}`} href={item==="View catalog"?"/catalog":"#"} key={item}><span style={icon ? { maskImage: `url(${icon})`, WebkitMaskImage: `url(${icon})` } : undefined}>{icon ? "" : "◎"}</span>{item}{item==="Products"&&<b>24</b>}</a>)}</nav>
         <div className="userCard"><div>MC</div><p><b>Maya Chen</b><span>Root Admin</span></p><button aria-label="User menu">•••</button></div>
       </aside>
       <section className="adminMain">
